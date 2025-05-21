@@ -6,7 +6,10 @@ export type ProjectState = {
 };
 
 export type ProjectAction = {
-  getAllProjects: (searchFilter?: string) => Promise<void>;
+  // getAllProjects: (searchFilter?: string) => Promise<void>;
+  getAllProjects: (
+    searchFilter?: string | { searchTerm?: string; techs?: string[] }
+  ) => Promise<void>;
   getProjectByUserId: (userId: string) => Promise<void>;
   getProjectById: (id: string) => Promise<void>;
   createProject: (project: ProjectDto) => Promise<boolean>;

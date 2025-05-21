@@ -83,7 +83,7 @@ export default function Vlanding() {
                         ¿Qué quieres ser?
                       </div>
                       <Link
-                        to="/auth/register"
+                        to="/auth/register-freelancer"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
                         onClick={() => setIsRegisterOpen(false)}
                       >

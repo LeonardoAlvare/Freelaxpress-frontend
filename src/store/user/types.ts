@@ -17,6 +17,7 @@ export type UserDto = {
   idioma?: string[];
   experiencia?: string;
   categoria?: string[];
+  plan?: string;
 };
 
 export type User = UserDto & {
