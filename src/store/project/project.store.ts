@@ -14,17 +14,46 @@ const initialState: ProjectState = {
 const useProjectStore = create<ProjectState & ProjectAction>((set, get) => ({
   ...initialState,
 
-  async getAllProjects(nameFilter) {
+  async getAllProjects(
+    searchFilter?: string | { searchTerm?: string; techs?: string[] }
+  ) {
     try {
       set({ loading: true });
-      const { data } = await httpClient.get("/project", {
-        params: {
-          nameFilter,
-        },
-      });
-      set({ allProjects: data });
+      const { data } = await httpClient.get("/project");
+
+      let searchTerm = "";
+      let techs: string[] = [];
+
+      if (typeof searchFilter === "string") {
+        searchTerm = searchFilter || "";
+      } else if (searchFilter && typeof searchFilter === "object") {
+        searchTerm = searchFilter.searchTerm || "";
+        techs = searchFilter.techs || [];
+      }
+
+      if (!searchTerm.trim() && techs.length === 0) {
+        set({ allProjects: data });
+        return;
+      }
+
+      const filteredProjects = data.filter(
+        (project: { name: string; techs: string | string[] }) => {
+          const searchLower = searchTerm.toLowerCase();
+
+          const nameMatch = project.name.toLowerCase().includes(searchLower);
+
+          const techMatch =
+            techs.length === 0 ||
+            techs.some((tech) => project.techs.includes(tech));
+
+          return nameMatch && techMatch;
+        }
+      );
+
+      set({ allProjects: filteredProjects });
     } catch (error) {
       console.error(error);
+      toast.error("Error al filtrar proyectos");
     } finally {
       set({ loading: false });
     }

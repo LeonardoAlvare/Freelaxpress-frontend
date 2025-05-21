@@ -11,6 +11,9 @@ import PowerBI from "../pages/power-bi/PowerBI";
 import Landing from "../pages/landing/Landing";
 import Weka from "../pages/weka/Weka";
 import Vlanding from "../pages/vlanding/Vlanding";
+import RegisterFreelancer from "../pages/register/Register_freelancer";
+import SubscriptionPlans from "../pages/suscription/Suscription_plan";
+import PaymentGateway from "../pages/payment/Payment";
 
 const router = createBrowserRouter(
   [
@@ -69,7 +72,19 @@ const router = createBrowserRouter(
           path: "register",
           element: <Register />,
         },
+        {
+          path: "register-freelancer",
+          element: <RegisterFreelancer />,
+        },
       ],
+    },
+    {
+      path: "/plan",
+      element: <SubscriptionPlans />,
+    },
+    {
+      path: "/paymemnt",
+      element: <PaymentGateway />,
     },
   ],
   {
