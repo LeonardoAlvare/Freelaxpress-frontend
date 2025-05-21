@@ -10,6 +10,7 @@ import { UserDto } from "../../store/user/types";
 import useAuthStore from "../../store/auth/auth.store";
 import { Chips } from "primereact/chips";
 import { Dropdown } from "primereact/dropdown";
+import { MultiSelect } from "primereact/multiselect";
 
 export const Category = [
   { label: "Junior", value: "Junior" },
@@ -231,7 +232,7 @@ function UserForm() {
               />
             </div>
 
-            <div className="col-span-2">
+            {/* <div className="col-span-2">
               <Controller
                 name="categoria"
                 control={control}
@@ -258,6 +259,37 @@ function UserForm() {
                   </>
                 )}
               />
+            </div> */}
+
+            <div className="col-span-2">
+              <Controller
+                name="categoria"
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <label htmlFor="categoria" className="block text-gray-700">
+                      Categorias
+                    </label>
+                    <MultiSelect
+                      {...field}
+                      invalid={!!errors.categoria}
+                      name={field.name}
+                      value={field.value || []}
+                      id="categoria"
+                      className="w-full"
+                      options={[
+                        "Desarrollo Web",
+                        "Desarrollo Móvil",
+                        "Desarrollo Backend",
+                        "Desarrollo Frontend",
+                        "Desarrollo en la Nube",
+                      ]}
+                      placeholder="Selecciona las categorías"
+                    />
+                  </>
+                )}
+              />
+              {renderFieldError("categoria")}
             </div>
           </>
         )}
