@@ -5,9 +5,10 @@ import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Controller, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import useAuthStore from "../../store/auth/auth.store";
+import logo from "../../assets/imagen_logo.png";
 
 const loginSchema = Yup.object({
   email: Yup.string()
@@ -19,6 +20,7 @@ const loginSchema = Yup.object({
 function Login() {
   const login = useAuthStore((state) => state.login);
   const loading = useAuthStore((state) => state.loading);
+  const navigate = useNavigate();
 
   const { register, handleSubmit, formState, control } = useForm({
     resolver: yupResolver(loginSchema),
@@ -43,59 +45,80 @@ function Login() {
   });
 
   return (
-    <Card title="Inicio de sesión" className="w-full max-w-2xl">
-      <form className="flex flex-col gap-8" onSubmit={onSubmit}>
-        <div>
-          <FloatLabel>
-            <InputText
-              {...register("email")}
-              id="email"
-              name="email"
-              className="w-full"
+    <div className="flex flex-col items-center gap-8 w-full max-w-2xl mx-auto px-4">
+      {/* Botón Volver alineado a la izquierda */}
+      <div className="self-start w-full">
+        <Button
+          icon="pi pi-arrow-left"
+          label="Volver"
+          text
+          onClick={() => navigate("/")}
+        />
+      </div>
+
+      {/* Logo y título centrados */}
+      <div className="flex items-center space-x-4">
+        <img src={logo} className="h-16 w-auto" alt="FreelaXpress Logo" />
+        <a className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent tracking-tight">
+          FreelaXpress
+        </a>
+      </div>
+
+      {/* Card del formulario */}
+      <Card title="Inicio de sesión" className="w-full mb-6">
+        <form className="flex flex-col gap-6" onSubmit={onSubmit}>
+          <div>
+            <FloatLabel>
+              <InputText
+                {...register("email")}
+                id="email"
+                name="email"
+                className="w-full"
+                pt={{
+                  root: { className: "border-gray-300 hover:border-blue-500" },
+                }}
+              />
+              <label htmlFor="email">Email</label>
+            </FloatLabel>
+            {renderFieldError("email")}
+          </div>
+
+          <div className="w-full">
+            <Controller
+              name="password"
+              control={control}
+              render={({ field }) => (
+                <FloatLabel className="w-full">
+                  <Password
+                    {...field}
+                    id="password"
+                    className="block w-full [&_div]:w-full [&_input]:w-full"
+                    toggleMask
+                    feedback={false}
+                    pt={{
+                      root: {
+                        className: "border-gray-300 hover:border-blue-500",
+                      },
+                      input: { className: "w-full" },
+                    }}
+                  />
+                  <label htmlFor="password">Contraseña</label>
+                </FloatLabel>
+              )}
             />
-            <label htmlFor="email">Email</label>
-          </FloatLabel>
-          {renderFieldError("email")}
-        </div>
+            {renderFieldError("password")}
+          </div>
 
-        <div className="w-full">
-          <Controller
-            name="password"
-            control={control}
-            render={({ field }) => (
-              <FloatLabel className="w-full">
-                <Password
-                  {...field}
-                  id="password"
-                  className="block w-full [&_div]:w-full [&_input]:w-full"
-                  toggleMask
-                  feedback={false}
-                />
-                <label htmlFor="password">Password</label>
-              </FloatLabel>
-            )}
-          />
-          {renderFieldError("password")}
-        </div>
-
-        <div>
-          <Button
-            loading={loading}
-            label="Iniciar sesión"
-            className="block w-full"
-          />
-        </div>
-
-        <div>
-          <p className="text-center">
-            Si no tienes cuenta, puedes{" "}
-            <Link to="/auth/register" className="text-blue-500 hover:underline">
-              registrarte
-            </Link>
-          </p>
-        </div>
-      </form>
-    </Card>
+          <div>
+            <Button
+              loading={loading}
+              label="Iniciar sesión"
+              className="w-full bg-blue-600 hover:bg-blue-700 border-blue-600 py-3"
+            />
+          </div>
+        </form>
+      </Card>
+    </div>
   );
 }
 

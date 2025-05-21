@@ -111,10 +111,27 @@ export default function Landing() {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 w-12 h-12 bg-blue-600 text-white text-2xl rounded-full shadow-xl hover:bg-blue-700 hover:scale-110 transition-all duration-300 flex items-center justify-center z-50"
+          className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 flex items-center justify-center z-50 group"
           aria-label="Volver arriba"
         >
-          ↑
+          <span className="relative">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 group-hover:-translate-y-1 transition-transform duration-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 15l7-7 7 7"
+              />
+            </svg>
+            <span className="absolute -bottom-1 left-0 right-0 h-1 bg-blue-300 rounded-full scale-x-0 group-hover:scale-x-75 transition-transform duration-300 origin-center"></span>
+          </span>
+          <span className="sr-only">Volver arriba</span>
         </button>
       )}
     </main>

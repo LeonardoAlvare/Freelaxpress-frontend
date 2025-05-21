@@ -306,6 +306,15 @@ const PaymentGateway = () => {
   };
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div>
+        <Button
+          icon="pi pi-arrow-left"
+          className="mb-4"
+          label="Volver"
+          text
+          onClick={() => navigate("/plan")}
+        />
+      </div>
       <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Columna izquierda - Formulario */}
         <div className="lg:col-span-2">
@@ -518,7 +527,7 @@ const PaymentGateway = () => {
                       className={classNames("w-full", {
                         "p-invalid": errors.cvv,
                       })}
-                      maxLength={4}
+                      maxLength={3}
                     />
                     {errors.cvv && (
                       <small className="p-error block mt-1">{errors.cvv}</small>

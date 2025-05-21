@@ -7,13 +7,14 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import useAuthStore from "../../store/auth/auth.store";
 import { UserDto } from "../../store/user/types";
 import { Chips } from "primereact/chips";
 import { Dropdown } from "primereact/dropdown";
 import { MultiSelect } from "primereact/multiselect";
+import logo from "../../assets/imagen_logo.png";
 
 export const Category = [
   { label: "Junior", value: "Junior" },
@@ -79,6 +80,8 @@ function RegisterFreelancer() {
   });
   const { errors } = formState;
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     watch((value) => {
       setIsFreelancer(value.isFreelancer!);
@@ -105,243 +108,261 @@ function RegisterFreelancer() {
   };
 
   return (
-    <Card title="Registro" className="w-full max-w-2xl">
-      <form
-        className="grid grid-cols-1 md:grid-cols-2 gap-8"
-        onSubmit={onSubmit}
-      >
-        <div className="col-span-1">
-          <FloatLabel>
-            <InputText
-              {...register("name")}
-              id="name"
-              name="name"
-              className="w-full"
+    <div className="flex flex-col items-center gap-8 w-full max-w-2xl mx-auto">
+      <div className="self-start w-full">
+        <Button
+          icon="pi pi-arrow-left"
+          label="Volver"
+          text
+          onClick={() => navigate("/")}
+        />
+      </div>
+      <div className="flex items-center space-x-4">
+        <img src={logo} className="h-16 w-auto" alt="FreelaXpress Logo" />
+        <a className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent tracking-tight">
+          FreelaXpress
+        </a>
+      </div>
+      <Card title="Registro Freelancer" className="w-full max-w-2xl">
+        <form
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          onSubmit={onSubmit}
+        >
+          <div className="col-span-1">
+            <FloatLabel>
+              <InputText
+                {...register("name")}
+                id="name"
+                name="name"
+                className="w-full"
+              />
+              <label htmlFor="name">Nombre</label>
+            </FloatLabel>
+            {renderFieldError("name")}
+          </div>
+
+          <div className="col-span-1">
+            <FloatLabel>
+              <InputText
+                {...register("lastname")}
+                id="lastname"
+                name="lastname"
+                className="w-full"
+              />
+              <label htmlFor="lastname">Apellido</label>
+            </FloatLabel>
+            {renderFieldError("lastname")}
+          </div>
+
+          <div className="col-span-2">
+            <FloatLabel>
+              <InputText
+                {...register("email")}
+                id="email"
+                name="email"
+                className="w-full"
+              />
+              <label htmlFor="email">Email</label>
+            </FloatLabel>
+            {renderFieldError("email")}
+          </div>
+
+          <div className="col-span-2">
+            <Controller
+              control={control}
+              name="password"
+              render={({ field }) => (
+                <FloatLabel className="w-full">
+                  <Password
+                    {...field}
+                    id="password"
+                    className="block w-full [&_div]:w-full [&_input]:w-full"
+                    toggleMask
+                  />
+                  <label htmlFor="password">Contraseña</label>
+                </FloatLabel>
+              )}
             />
-            <label htmlFor="name">Nombre</label>
-          </FloatLabel>
-          {renderFieldError("name")}
-        </div>
+            {renderFieldError("password")}
+          </div>
 
-        <div className="col-span-1">
-          <FloatLabel>
-            <InputText
-              {...register("lastname")}
-              id="lastname"
-              name="lastname"
-              className="w-full"
+          <div className="col-span-2">
+            <Controller
+              control={control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FloatLabel>
+                  <Password
+                    {...field}
+                    id="confirmPassword"
+                    className="block w-full [&_div]:w-full [&_input]:w-full"
+                    toggleMask
+                    feedback={false}
+                  />
+                  <label htmlFor="confirmPassword">Confirmar contraseña</label>
+                </FloatLabel>
+              )}
             />
-            <label htmlFor="lastname">Apellido</label>
-          </FloatLabel>
-          {renderFieldError("lastname")}
-        </div>
+            {renderFieldError("confirmPassword")}
+          </div>
 
-        <div className="col-span-2">
-          <FloatLabel>
-            <InputText
-              {...register("email")}
-              id="email"
-              name="email"
-              className="w-full"
+          <div className="col-span-2">
+            <Controller
+              control={control}
+              name="isFreelancer"
+              defaultValue={true}
+              render={({ field }) => (
+                <div className="flex align-items-center">
+                  <Checkbox
+                    inputId="isFreelancer"
+                    name={field.name}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    value={field.value}
+                    checked={!!field.value}
+                    disabled
+                  />
+                  <label htmlFor="isFreelancer" className="ml-2">
+                    Soy freelancer
+                  </label>
+                </div>
+              )}
             />
-            <label htmlFor="email">Email</label>
-          </FloatLabel>
-          {renderFieldError("email")}
-        </div>
+            {renderFieldError("isFreelancer")}
+          </div>
 
-        <div className="col-span-2">
-          <Controller
-            control={control}
-            name="password"
-            render={({ field }) => (
-              <FloatLabel className="w-full">
-                <Password
-                  {...field}
-                  id="password"
-                  className="block w-full [&_div]:w-full [&_input]:w-full"
-                  toggleMask
-                />
-                <label htmlFor="password">Contraseña</label>
-              </FloatLabel>
-            )}
-          />
-          {renderFieldError("password")}
-        </div>
-
-        <div className="col-span-2">
-          <Controller
-            control={control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FloatLabel>
-                <Password
-                  {...field}
-                  id="confirmPassword"
-                  className="block w-full [&_div]:w-full [&_input]:w-full"
-                  toggleMask
-                  feedback={false}
-                />
-                <label htmlFor="confirmPassword">Confirmar contraseña</label>
-              </FloatLabel>
-            )}
-          />
-          {renderFieldError("confirmPassword")}
-        </div>
-
-        <div className="col-span-2">
-          <Controller
-            control={control}
-            name="isFreelancer"
-            defaultValue={true}
-            render={({ field }) => (
-              <div className="flex align-items-center">
-                <Checkbox
-                  inputId="isFreelancer"
-                  name={field.name}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  value={field.value}
-                  checked={!!field.value}
-                  disabled
-                />
-                <label htmlFor="isFreelancer" className="ml-2">
-                  Soy freelancer
-                </label>
+          {isFreelancer && (
+            <>
+              <div className="col-span-2">
+                <FloatLabel>
+                  <InputText
+                    {...register("github")}
+                    id="github"
+                    name="github"
+                    className="w-full"
+                  />
+                  <label htmlFor="github">Github url</label>
+                </FloatLabel>
+                {renderFieldError("github")}
               </div>
-            )}
-          />
-          {renderFieldError("isFreelancer")}
-        </div>
 
-        {isFreelancer && (
-          <>
-            <div className="col-span-2">
-              <FloatLabel>
-                <InputText
-                  {...register("github")}
-                  id="github"
-                  name="github"
-                  className="w-full"
+              <div className="col-span-2">
+                <Controller
+                  name="idioma"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <>
+                      <label
+                        htmlFor="idioma"
+                        className="block text-gray-700 mb-2"
+                      >
+                        Idiomas que manejas
+                      </label>
+                      <Chips
+                        {...field}
+                        id="idioma"
+                        name={field.name}
+                        value={field.value as string[]}
+                        className="w-full"
+                      />
+                      {fieldState.error && (
+                        <small className="p-error">
+                          {fieldState.error.message}
+                        </small>
+                      )}
+                    </>
+                  )}
                 />
-                <label htmlFor="github">Github url</label>
-              </FloatLabel>
-              {renderFieldError("github")}
-            </div>
+              </div>
+              <div className="col-span-2">
+                <Controller
+                  name="experience"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <>
+                      <label
+                        htmlFor="experience"
+                        className="block text-gray-700 mb-2"
+                      >
+                        Nivel de experiencia
+                      </label>
+                      <Dropdown
+                        id="experience"
+                        value={field.value}
+                        onChange={(e) => field.onChange(e.value)}
+                        options={Object.values(Category)}
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Selecciona tu nivel"
+                        className={`w-full ${
+                          fieldState.error ? "p-invalid" : ""
+                        }`}
+                      />
+                      {fieldState.error && (
+                        <small className="p-error">
+                          {fieldState.error.message}
+                        </small>
+                      )}
+                    </>
+                  )}
+                />
+              </div>
 
-            <div className="col-span-2">
-              <Controller
-                name="idioma"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <>
-                    <label
-                      htmlFor="idioma"
-                      className="block text-gray-700 mb-2"
-                    >
-                      Idiomas que manejas
-                    </label>
-                    <Chips
-                      {...field}
-                      id="idioma"
-                      name={field.name}
-                      value={field.value as string[]}
-                      // onChange={(e) => field.onChange(e.value)}
-                      className="w-full"
-                    />
-                    {fieldState.error && (
-                      <small className="p-error">
-                        {fieldState.error.message}
-                      </small>
-                    )}
-                  </>
-                )}
-              />
-            </div>
-            <div className="col-span-2">
-              <Controller
-                name="experience"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <>
-                    <label
-                      htmlFor="experience"
-                      className="block text-gray-700 mb-2"
-                    >
-                      Nivel de experiencia
-                    </label>
-                    <Dropdown
-                      id="experience"
-                      value={field.value}
-                      onChange={(e) => field.onChange(e.value)}
-                      options={Object.values(Category)}
-                      optionLabel="label"
-                      optionValue="value"
-                      placeholder="Selecciona tu nivel"
-                      className={`w-full ${
-                        fieldState.error ? "p-invalid" : ""
-                      }`}
-                    />
-                    {fieldState.error && (
-                      <small className="p-error">
-                        {fieldState.error.message}
-                      </small>
-                    )}
-                  </>
-                )}
-              />
-            </div>
+              <div className="col-span-2">
+                <Controller
+                  name="categoria"
+                  control={control}
+                  render={({ field }) => (
+                    <>
+                      <label
+                        htmlFor="categoria"
+                        className="block text-gray-700"
+                      >
+                        Categorias
+                      </label>
+                      <MultiSelect
+                        {...field}
+                        invalid={!!errors.categoria}
+                        name={field.name}
+                        value={field.value || []}
+                        id="categoria"
+                        className="w-full"
+                        options={[
+                          "Desarrollo Web",
+                          "Desarrollo Móvil",
+                          "Desarrollo Backend",
+                          "Desarrollo Frontend",
+                          "Desarrollo en la Nube",
+                        ]}
+                        placeholder="Selecciona las categorías"
+                      />
+                    </>
+                  )}
+                />
+                {renderFieldError("categoria")}
+              </div>
+            </>
+          )}
 
-            <div className="col-span-2">
-              <Controller
-                name="categoria"
-                control={control}
-                render={({ field }) => (
-                  <>
-                    <label htmlFor="categoria" className="block text-gray-700">
-                      Categorias
-                    </label>
-                    <MultiSelect
-                      {...field}
-                      invalid={!!errors.categoria}
-                      name={field.name}
-                      value={field.value || []}
-                      id="categoria"
-                      className="w-full"
-                      options={[
-                        "Desarrollo Web",
-                        "Desarrollo Móvil",
-                        "Desarrollo Backend",
-                        "Desarrollo Frontend",
-                        "Desarrollo en la Nube",
-                      ]}
-                      placeholder="Selecciona las categorías"
-                    />
-                  </>
-                )}
-              />
-              {renderFieldError("categoria")}
-            </div>
-          </>
-        )}
+          <div className="col-span-2">
+            <Button
+              loading={loading}
+              label="Registrarse"
+              className="block w-full"
+            />
+          </div>
 
-        <div className="col-span-2">
-          <Button
-            loading={loading}
-            label="Registrarse"
-            className="block w-full"
-          />
-        </div>
-
-        <div className="col-span-2">
-          <p className="text-center">
-            ¿Ya tienes una cuenta?{" "}
-            <Link to="/auth/login" className="text-blue-500 hover:underline">
-              Inicia sesión
-            </Link>
-          </p>
-        </div>
-      </form>
-    </Card>
+          <div className="col-span-2">
+            <p className="text-center">
+              ¿Ya tienes una cuenta?{" "}
+              <Link to="/auth/login" className="text-blue-500 hover:underline">
+                Inicia sesión
+              </Link>
+            </p>
+          </div>
+        </form>
+      </Card>
+    </div>
   );
 }
 
