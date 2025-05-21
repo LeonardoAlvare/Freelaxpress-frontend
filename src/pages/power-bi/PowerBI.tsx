@@ -44,36 +44,11 @@ function PowerBI() {
         }}
         eventHandlers={
           new Map([
-            [
-              "loaded",
-              () => {
-                console.log("Report loaded");
-              },
-            ],
-            [
-              "rendered",
-              () => {
-                console.log("Report rendered");
-              },
-            ],
-            [
-              "error",
-              (event: CustomEvent<any> | undefined) => {
-                console.log(event?.detail);
-              },
-            ],
-            [
-              "visualClicked",
-              () => {
-                console.log("visual clicked");
-              },
-            ],
-            [
-              "pageChanged",
-              (event: CustomEvent<any> | undefined) => {
-                console.log(event);
-              },
-            ],
+            ["loaded", () => {}],
+            ["rendered", () => {}],
+            ["error", (event: CustomEvent<any> | undefined) => {}],
+            ["visualClicked", () => {}],
+            ["pageChanged", (event: CustomEvent<any> | undefined) => {}],
           ])
         }
         cssClassName={"reportClass"}

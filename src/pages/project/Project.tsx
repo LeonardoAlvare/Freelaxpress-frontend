@@ -40,14 +40,11 @@ function Project() {
   const editProject = useProjectStore((state) => state.EditProject);
 
   const handleViewProfile = async (userId: string) => {
-    console.log("Intentando obtener usuario con ID:", userId);
     try {
       const user = await getUserById(userId);
-      console.log("Usuario obtenido:", user);
       setSelectedUser(user);
       setShowProfileDialog(true);
     } catch (error) {
-      console.error("Error al obtener usuario:", error);
       setSelectedUser(null);
       setShowProfileDialog(true);
     }
@@ -63,18 +60,6 @@ function Project() {
       event.preventDefault();
 
       if (!projectId || !project) return;
-
-      // Log inicial del estado del proyecto
-      console.log("--- Estado INICIAL del proyecto ---");
-      console.log("Proyecto ID:", project._id);
-      console.log("Nombre:", project.name);
-      console.log("Estado actual:", project.status);
-      console.log("Freelancers requeridos:", project.freelancers);
-      console.log(
-        "Freelancers aceptados actuales:",
-        proposals.filter((p) => p.status === StatusProposal.Accept).length
-      );
-      console.log("----------------------------------");
 
       showConfirmDialog({
         header: "Aceptar postulación",

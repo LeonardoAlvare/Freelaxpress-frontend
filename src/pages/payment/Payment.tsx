@@ -274,11 +274,6 @@ const PaymentGateway = () => {
     }
   };
   const procesarConPasarelaExterna = async (paymentData: any) => {
-    console.log("Procesando con pasarela externa:", {
-      amount: paymentData.amount,
-      card: "****" + paymentData.cardNumber.slice(-4),
-    });
-
     await new Promise((resolve) => setTimeout(resolve, 2000));
     return true;
   };

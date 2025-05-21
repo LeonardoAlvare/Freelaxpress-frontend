@@ -68,7 +68,6 @@ export default function Weka() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("Datos del formulario:", formData);
 
     // Validación de campos numéricos >= 0
     if (
@@ -94,7 +93,6 @@ export default function Weka() {
       if (!response.ok) throw new Error("Error en la predicción");
 
       const data = await response.json();
-      console.log("Respuesta:", data);
       setPredictionResult(data);
       setIsDialogVisible(true); // Mostrar el diálogo con el resultado
     } catch (error) {
