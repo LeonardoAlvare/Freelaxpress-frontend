@@ -1,6 +1,4 @@
-import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { InputNumber } from "primereact/inputnumber";
 import { useState } from "react";
 import useAuthStore from "../../store/auth/auth.store";
 import { Project, StatusProject } from "../../store/project/types";
@@ -113,7 +111,6 @@ function FooterCard({ project, onCreateProposal, onDelete, onEdit }: Props) {
                   ? "bg-indigo-100 hover:bg-indigo-200 text-indigo-700"
                   : "bg-gray-100 text-gray-400 cursor-not-allowed"
               } px-4 py-2 rounded-lg transition-colors`}
-              // className="flex items-center gap-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 px-4 py-2 rounded-lg transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +137,6 @@ function FooterCard({ project, onCreateProposal, onDelete, onEdit }: Props) {
                   ? "bg-red-100 hover:bg-red-200 text-red-700"
                   : "bg-gray-100 text-gray-400 cursor-not-allowed"
               } px-4 py-2 rounded-lg transition-colors`}
-              // className="flex items-center gap-2 bg-red-100 hover:bg-red-200 text-red-700 px-4 py-2 rounded-lg transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +187,6 @@ function FooterCard({ project, onCreateProposal, onDelete, onEdit }: Props) {
                 ? "bg-green-100 hover:bg-green-200 text-green-700"
                 : "bg-gray-100 text-gray-400 cursor-not-allowed"
             } px-4 py-2 rounded-lg transition-colors font-medium`}
-            // className="flex items-center gap-2 bg-green-100 hover:bg-green-200 text-green-700 px-4 py-2 rounded-lg transition-colors font-medium"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -241,11 +236,6 @@ function FooterCard({ project, onCreateProposal, onDelete, onEdit }: Props) {
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 py-2 border-gray-300 rounded-md"
                 placeholder="0.00"
               />
-              {/* <div className="absolute inset-y-0 right-0 flex items-center">
-                <span className="text-gray-500 bg-gray-50 px-3 py-2 rounded-r-md">
-                  USD
-                </span>
-              </div> */}
             </div>
           </div>
 
@@ -266,9 +256,6 @@ function FooterCard({ project, onCreateProposal, onDelete, onEdit }: Props) {
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-4 py-2 border-gray-300 rounded-md"
                 placeholder="10"
               />
-              {/* <div className="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
-                <span className="text-gray-500">días</span>
-              </div> */}
             </div>
           </div>
         </div>

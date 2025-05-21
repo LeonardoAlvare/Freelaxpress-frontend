@@ -232,35 +232,6 @@ function UserForm() {
               />
             </div>
 
-            {/* <div className="col-span-2">
-              <Controller
-                name="categoria"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <>
-                    <label
-                      htmlFor="categoria"
-                      className="block text-gray-700 mb-2"
-                    >
-                      Categorias que manejas
-                    </label>
-                    <Chips
-                      {...field}
-                      id="categoria"
-                      name={field.name}
-                      value={field.value as string[]}
-                      className="w-full"
-                    />
-                    {fieldState.error && (
-                      <small className="p-error">
-                        {fieldState.error.message}
-                      </small>
-                    )}
-                  </>
-                )}
-              />
-            </div> */}
-
             <div className="col-span-2">
               <Controller
                 name="categoria"

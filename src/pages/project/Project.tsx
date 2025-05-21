@@ -49,7 +49,7 @@ function Project() {
     } catch (error) {
       console.error("Error al obtener usuario:", error);
       setSelectedUser(null);
-      setShowProfileDialog(true); // Mostrar diálogo incluso con error
+      setShowProfileDialog(true);
     }
   };
 
@@ -57,213 +57,6 @@ function Project() {
     !!projectId && getProjectById(projectId);
     !!projectId && getProposalByProjectId(projectId);
   }, [projectId]);
-
-  const countAcceptedProposals = () => {
-    const currentProposals = useProposalStore.getState().proposals;
-    return currentProposals.filter((p) => p.status === StatusProposal.Accept)
-      .length;
-  };
-
-  // const handleAccept = (proposalId: string) => () => {
-  //   const currentProposals = useProposalStore.getState().proposals;
-  //   const acceptedCount = currentProposals.filter(
-  //     (p) => p.status === StatusProposal.Accept
-  //   ).length;
-
-  //   if (project && acceptedCount >= project.freelancers) {
-  //     toast.current?.show({
-  //       severity: "warn",
-  //       summary: "Límite alcanzado",
-  //       detail: `Ya se han aceptado ${project.freelancers} freelancers para este proyecto`,
-  //       life: 5000,
-  //     });
-  //     return;
-  //   }
-
-  //   showConfirmDialog({
-  //     header: "Aceptar postulación",
-  //     message: "¿Estás seguro de aceptar esta postulación?",
-  //     icon: "pi pi-exclamation-triangle",
-  //     accept: async () => {
-  //       setLoading(true);
-  //       try {
-  //         await updateProposal(proposalId, { status: StatusProposal.Accept });
-
-  //         await getProposalByProjectId(projectId!);
-  //         const updatedProposals = useProposalStore.getState().proposals;
-
-  //         const newAcceptedCount = updatedProposals.filter(
-  //           (p) => p.status === StatusProposal.Accept
-  //         ).length;
-
-  //         if (project && newAcceptedCount >= project.freelancers) {
-  //           const otherProposals = updatedProposals.filter(
-  //             (p) => p._id !== proposalId && p.status === StatusProposal.Pending
-  //           );
-
-  //           const rejectPromises = otherProposals.map((prop) =>
-  //             updateProposal(prop._id, { status: StatusProposal.Reject })
-  //           );
-
-  //           await Promise.all(rejectPromises);
-
-  //           await getProposalByProjectId(projectId!);
-  //         }
-  //       } catch (error) {
-  //         toast.current?.show({
-  //           severity: "error",
-  //           summary: "Error",
-  //           detail: "No se pudo completar la operación",
-  //           life: 5000,
-  //         });
-  //       } finally {
-  //         setLoading(false);
-  //       }
-  //     },
-  //   });
-  // };
-
-  // const handleAccept = (proposalId: string) => {
-  //   return async (event: React.MouseEvent<HTMLButtonElement>) => {
-  //     event.preventDefault();
-
-  //     if (!projectId || !project) return;
-
-  //     // Obtener propuestas actuales
-  //     const currentProposals = [...useProposalStore.getState().proposals];
-  //     const acceptedCount = currentProposals.filter(
-  //       (p) => p.status === StatusProposal.Accept // 'aceptado'
-  //     ).length;
-
-  //     // Mostrar diálogo de confirmación
-  //     showConfirmDialog({
-  //       header: "Aceptar postulación",
-  //       message: "¿Estás seguro de aceptar esta postulación?",
-  //       icon: "pi pi-exclamation-triangle",
-  //       accept: async () => {
-  //         setLoading(true);
-  //         try {
-  //           // 1. Aceptar la propuesta actual
-  //           await updateProposal(proposalId, { status: StatusProposal.Accept });
-
-  //           // 2. Obtener datos actualizados
-  //           await getProposalByProjectId(projectId);
-  //           const updatedProposals = [...useProposalStore.getState().proposals];
-
-  //           // 3. Verificar si alcanzamos el límite
-  //           const newAcceptedCount = updatedProposals.filter(
-  //             (p) => p.status === StatusProposal.Accept
-  //           ).length;
-
-  //           if (newAcceptedCount >= project.freelancers) {
-  //             // 4. Encontrar TODAS las propuestas no aceptadas (excepto la actual)
-  //             const toReject = updatedProposals.filter(
-  //               (p) =>
-  //                 p._id !== proposalId && p.status !== StatusProposal.Accept
-  //             );
-
-  //             // 5. Rechazar en secuencia con delays
-  //             for (const prop of toReject) {
-  //               await updateProposal(prop._id, {
-  //                 status: StatusProposal.Reject,
-  //               });
-  //               await new Promise((resolve) => setTimeout(resolve, 300));
-  //             }
-
-  //             // 6. Actualización final forzada
-  //             await getProposalByProjectId(projectId);
-  //           }
-  //         } catch (error) {
-  //           toast.current?.show({
-  //             severity: "error",
-  //             summary: "Error",
-  //             detail: "No se pudo completar la operación",
-  //             life: 5000,
-  //           });
-  //         } finally {
-  //           setLoading(false);
-  //         }
-  //       },
-  //     });
-  //   };
-  // };
-
-  // const handleAccept = (proposalId: string) => {
-  //   return async (event: React.MouseEvent<HTMLButtonElement>) => {
-  //     event.preventDefault();
-
-  //     if (!projectId || !project) return;
-
-  //     showConfirmDialog({
-  //       header: "Aceptar postulación",
-  //       message: "¿Estás seguro de aceptar esta postulación?",
-  //       icon: "pi pi-exclamation-triangle",
-  //       accept: async () => {
-  //         setLoading(true);
-  //         try {
-  //           // 1. Aceptar la propuesta actual
-  //           await updateProposal(proposalId, { status: StatusProposal.Accept });
-
-  //           // 2. Obtener datos actualizados
-  //           await getProposalByProjectId(projectId);
-  //           const updatedProposals = [...useProposalStore.getState().proposals];
-
-  //           // 3. Verificar si alcanzamos el límite
-  //           const newAcceptedCount = updatedProposals.filter(
-  //             (p) => p.status === StatusProposal.Accept
-  //           ).length;
-
-  //           console.log(
-  //             `Aceptados: ${newAcceptedCount} de ${project.freelancers} requeridos`
-  //           );
-
-  //           // 4. Si alcanzamos el límite, actualizar estado del proyecto
-  //           if (newAcceptedCount >= project.freelancers) {
-  //             console.log(
-  //               "Límite de freelancers alcanzado, desactivando proyecto..."
-  //             );
-
-  //             // Actualizar el proyecto a inactivo
-  //             await editProject(projectId, {
-  //               ...project,
-  //               status: StatusProject.Inactive,
-  //             });
-
-  //             // Volver a cargar el proyecto para ver los cambios
-  //             await getProjectById(projectId);
-  //             console.log("Proyecto actualizado a inactivo");
-  //             console.log(StatusProject);
-
-  //             // 5. Rechazar las demás propuestas
-  //             const toReject = updatedProposals.filter(
-  //               (p) =>
-  //                 p._id !== proposalId && p.status !== StatusProposal.Accept
-  //             );
-
-  //             for (const prop of toReject) {
-  //               await updateProposal(prop._id, {
-  //                 status: StatusProposal.Reject,
-  //               });
-  //               await new Promise((resolve) => setTimeout(resolve, 300));
-  //             }
-
-  //             await getProposalByProjectId(projectId);
-  //           }
-  //         } catch (error) {
-  //           console.error("Error al aceptar propuesta:", error);
-  //           toast.current?.show({
-  //             severity: "error",
-  //             summary: "Error",
-  //             detail: "No se pudo completar la operación",
-  //             life: 5000,
-  //           });
-  //         } finally {
-  //           setLoading(false);
-  //         }
-  //       },
-  //     });
-  //   };
-  // };
 
   const handleAccept = (proposalId: string) => {
     return async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -298,30 +91,13 @@ function Project() {
               (p) => p.status === StatusProposal.Accept
             ).length;
 
-            // Log después de aceptar pero antes de verificar límite
-            console.log("\n--- Después de aceptar propuesta ---");
-            console.log("Nuevo conteo de aceptados:", newAcceptedCount);
-            console.log("--------------------------------------");
-
             if (newAcceptedCount >= project.freelancers) {
-              console.log("\n⚠️ LÍMITE DE FREELANCERS ALCANZADO ⚠️");
-              console.log('Actualizando estado del proyecto a "inactive"...');
-
               const updateResult = await editProject(projectId, {
                 ...project,
                 status: StatusProject.Inactive,
               });
 
-              console.log(
-                "Resultado de la actualización:",
-                updateResult ? "Éxito" : "Fallo"
-              );
-
               const updatedProject = await getProjectById(projectId);
-              console.log("\n--- Estado FINAL del proyecto ---");
-              console.log("Nuevo estado:", project.status);
-              console.log("Freelancers aceptados:", newAcceptedCount);
-              console.log("----------------------------------");
 
               // Rechazar otras propuestas...
               const toReject = updatedProposals.filter(
@@ -329,16 +105,12 @@ function Project() {
                   p._id !== proposalId && p.status !== StatusProposal.Accept
               );
 
-              console.log(
-                `Rechazando ${toReject.length} propuestas restantes...`
-              );
               for (const prop of toReject) {
                 await updateProposal(prop._id, {
                   status: StatusProposal.Reject,
                 });
                 await new Promise((resolve) => setTimeout(resolve, 300));
               }
-              console.log("Todas las propuestas restantes han sido rechazadas");
             }
           } catch (error) {
             console.error("\n❌ ERROR en el proceso:", error);
@@ -427,11 +199,6 @@ function Project() {
                             aria-label="Accept"
                             className="w-8 h-8 p-0"
                             onClick={handleAccept(proposal._id)}
-                            // disabled={
-                            //   loading ||
-                            //   (!!project &&
-                            //     countAcceptedProposals() >= project.freelancers)
-                            // }
                           />
                         </>
                       )}

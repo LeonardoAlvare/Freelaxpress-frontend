@@ -28,7 +28,7 @@ const registerSchema = Yup.object({
   email: Yup.string()
     .email("El email no es válido")
     .required("El email es requerido"),
-  password: Yup.string().required("La contraseña es requerida"),
+  password: Yup.string().required("La contraseña es requerida").min(8),
   confirmPassword: Yup.string().oneOf(
     [Yup.ref("password")],
     "Las contraseñas no coinciden"

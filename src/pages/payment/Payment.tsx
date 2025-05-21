@@ -231,26 +231,6 @@ const PaymentGateway = () => {
 
     setIsProcessing(true);
 
-    // try {
-    //   await new Promise((resolve) => setTimeout(resolve, 2000));
-    //   const isSuccess = Math.random() > 0.2;
-
-    //   if (isSuccess) {
-    //     navigate("/payment-success", {
-    //       state: {
-    //         plan: selectedPlan,
-    //         email: formData.user.email,
-    //         lastFourDigits: formData.payment.cardNumber.slice(-4),
-    //       },
-    //     });
-    //   } else {
-    //     throw new Error("El pago no pudo ser procesado");
-    //   }
-    // } catch (error) {
-    //   alert(`Error en el pago: ${(error as Error).message}`);
-    // } finally {
-    //   setIsProcessing(false);
-    // }
     try {
       // 1. Procesar pago con pasarela externa (ej. Stripe, PayPal)
       const pagoExitoso = await procesarConPasarelaExterna({
@@ -263,7 +243,6 @@ const PaymentGateway = () => {
 
       if (pagoExitoso) {
         // 2. Solo si el pago es exitoso, registrar al usuario
-        // await registerUser(registrationData);
         const registrationData = JSON.parse(
           localStorage.getItem("registrationData") || "{}"
         );
@@ -273,8 +252,7 @@ const PaymentGateway = () => {
           lastname: registrationData.lastname,
           email: registrationData.email,
           password: registrationData.password,
-          plan: registrationData.plan || "", // Asegurar que incluimos el plan
-          // Los demás campos opcionales pueden omitirse
+          plan: registrationData.plan || "",
         };
 
         // 4. Enviar al backend
@@ -298,11 +276,11 @@ const PaymentGateway = () => {
   const procesarConPasarelaExterna = async (paymentData: any) => {
     console.log("Procesando con pasarela externa:", {
       amount: paymentData.amount,
-      card: "****" + paymentData.cardNumber.slice(-4), // Nunca registrar el número completo
+      card: "****" + paymentData.cardNumber.slice(-4),
     });
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    return true; // Cambiar a false para simular pago fallido
+    return true;
   };
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">

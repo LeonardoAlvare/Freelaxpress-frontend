@@ -67,30 +67,6 @@ function ProjectCard({ project, hideFooter = false, onEdit }: Props) {
           )
         }
       >
-        {/* <div className="flex flex-col h-full">
-          <div className="min-h-[100px] max-h-[100px] overflow-y-auto mb-4">
-            <p>{project.description}</p>
-          </div>
-          <div className="flex flex-wrap gap-2 mb-4 min-h-[40px]">
-            {project.techs.map((tech) => (
-              <span key={tech} className="bg-gray-200 p-1 px-4 rounded-lg">
-                {tech}
-              </span>
-            ))}
-          </div>
-          <div className="flex gap-2 text-gray-500 text-sm mb-4">
-            <time>{formatDate(project.dateInit.toString())}</time>-
-            <time>{formatDate(project.dateEnd.toString())}</time>
-          </div>
-          <div className="flex gap-2 text-sm mb-4">
-            <span className="text-xl">Freelancers: {project.freelancers}</span>
-          </div>
-          <div className="mt-auto">
-            <span className="text-2xl font-bold text-gray-500">
-              Salario: {formatCurrency(project.salary)}
-            </span>
-          </div>
-        </div> */}
         <div className="flex flex-col h-full">
           {/* Descripción con icono */}
           <div className="min-h-[100px] max-h-[100px] overflow-y-auto mb-4 p-3 bg-gray-50 rounded-lg">

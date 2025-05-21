@@ -62,7 +62,7 @@ const SubscriptionPlans = () => {
     // Actualizar solo el campo plan
     const updatedData = {
       ...currentData,
-      plan: planSeleccionado.name, // Asegurar que guardamos el nombre del plan
+      plan: planSeleccionado.name,
     };
 
     // Guardar de vuelta en localStorage
@@ -95,7 +95,7 @@ const SubscriptionPlans = () => {
     navigate("/paymemnt", {
       state: {
         selectedPlan: planSeleccionado,
-        price: planSeleccionado.price, // Pasamos el precio como estado
+        price: planSeleccionado.price,
       },
     });
   };
@@ -208,24 +208,6 @@ const SubscriptionPlans = () => {
             ))}
           </div>
 
-          {/* {selectedPlan !== null && (
-            <div className="mt-8 text-center">
-              <p className="text-lg text-gray-700">
-                Has seleccionado el plan{" "}
-                <span className="font-bold">
-                  {plans.find((p) => p.id === selectedPlan)?.name}
-                </span>
-              </p>
-              <Button
-                label="Continuar con el pago"
-                className="mt-4 p-button-lg"
-                icon="pi pi-arrow-right"
-                iconPos="right"
-                // onClick={() => navigate("/paymemnt", { state: selectedPlan })}
-                onClick={() => navigate("/paymemnt")}
-              />
-            </div>
-          )} */}
           {selectedPlan !== null && (
             <div className="mt-8 text-center">
               <p className="text-lg text-gray-700">
