@@ -15,7 +15,6 @@ import { Dialog } from "primereact/dialog";
 
 import { Toast } from "primereact/toast";
 import { useRef } from "react";
-import { StatusProject } from "../../store/project/types";
 
 function Project() {
   const toast = useRef<Toast>(null);
@@ -36,8 +35,6 @@ function Project() {
   const [showProfileDialog, setShowProfileDialog] = useState(false);
 
   const [loading, setLoading] = useState(false);
-
-  const editProject = useProjectStore((state) => state.EditProject);
 
   const handleViewProfile = async (userId: string) => {
     try {
@@ -77,13 +74,6 @@ function Project() {
             ).length;
 
             if (newAcceptedCount >= project.freelancers) {
-              const updateResult = await editProject(projectId, {
-                ...project,
-                status: StatusProject.Inactive,
-              });
-
-              const updatedProject = await getProjectById(projectId);
-
               // Rechazar otras propuestas...
               const toReject = updatedProposals.filter(
                 (p) =>

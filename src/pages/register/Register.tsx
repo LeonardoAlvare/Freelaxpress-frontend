@@ -32,7 +32,6 @@ const registerSchema = Yup.object({
 });
 
 function Register() {
-  const registerUser = useAuthStore((state) => state.register);
   const loading = useAuthStore((state) => state.loading);
   const navigate = useNavigate();
 

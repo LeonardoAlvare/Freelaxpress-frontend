@@ -46,9 +46,9 @@ function PowerBI() {
           new Map([
             ["loaded", () => {}],
             ["rendered", () => {}],
-            ["error", (event: CustomEvent<any> | undefined) => {}],
+            ["error", () => {}],
             ["visualClicked", () => {}],
-            ["pageChanged", (event: CustomEvent<any> | undefined) => {}],
+            ["pageChanged", () => {}],
           ])
         }
         cssClassName={"reportClass"}

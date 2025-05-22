@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const httpClient = axios.create({
-  baseURL: "http://localhost:3001/api",
+  baseURL: "https://proaula-be-production.up.railway.app/api",
   headers: {
     "Content-Type": "application/json",
   },

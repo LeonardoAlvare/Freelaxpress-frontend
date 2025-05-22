@@ -5,7 +5,6 @@ import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { Dialog } from "primereact/dialog";
-import { Card } from "primereact/card";
 import { Panel } from "primereact/panel";
 
 export default function Weka() {
@@ -94,13 +93,10 @@ export default function Weka() {
 
       const data = await response.json();
       setPredictionResult(data);
-      setIsDialogVisible(true); // Mostrar el diálogo con el resultado
     } catch (error) {
       console.error("Error al hacer la predicción:", error);
     }
   };
-
-  const [isDialogVisible, setIsDialogVisible] = useState(false);
   return (
     <div className="p-6">
       <Panel

@@ -10,13 +10,6 @@ import { classNames } from "primereact/utils";
 import useAuthStore from "../../store/auth/auth.store";
 import { UserDto } from "../../store/user/types";
 
-// Definimos tipos para nuestros estados
-// interface SubscriptionPlan {
-//   name: string;
-//   price: string;
-//   period: string;
-// }
-
 interface SubscriptionPlan {
   id: number;
   name: string;
@@ -61,11 +54,6 @@ interface SummaryItem {
   label: string;
   value: string;
   isTotal?: boolean;
-}
-
-interface CustomCheckboxChangeEvent extends CheckboxChangeEvent {
-  name: string;
-  checked: boolean;
 }
 
 const PaymentGateway = () => {
@@ -233,13 +221,7 @@ const PaymentGateway = () => {
 
     try {
       // 1. Procesar pago con pasarela externa (ej. Stripe, PayPal)
-      const pagoExitoso = await procesarConPasarelaExterna({
-        amount: state?.price,
-        cardNumber: formData.payment.cardNumber,
-        cardName: formData.payment.cardName,
-        expiryDate: formData.payment.expiryDate,
-        cvv: formData.payment.cvv,
-      });
+      const pagoExitoso = await procesarConPasarelaExterna();
 
       if (pagoExitoso) {
         // 2. Solo si el pago es exitoso, registrar al usuario
@@ -273,7 +255,7 @@ const PaymentGateway = () => {
       setIsProcessing(false);
     }
   };
-  const procesarConPasarelaExterna = async (paymentData: any) => {
+  const procesarConPasarelaExterna = async () => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     return true;
   };

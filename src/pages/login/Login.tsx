@@ -38,7 +38,7 @@ function Login() {
       data.email === "admin@freelaxpress.com" &&
       data.password === "admin123"
     ) {
-      window.location.href = "http://localhost:3000/admin";
+      window.location.href = "https://proaula-admin.vercel.app//admin";
     } else {
       login(data);
     }

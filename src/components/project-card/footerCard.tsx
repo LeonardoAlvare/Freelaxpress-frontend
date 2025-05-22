@@ -22,7 +22,6 @@ function FooterCard({ project, onCreateProposal, onDelete, onEdit }: Props) {
   const [visible, setVisible] = useState(false);
   const [salary, setSalary] = useState<number>(0);
   const [days, setDays] = useState<number>(1);
-  const [loading, setLoading] = useState(false);
 
   const isProjectActive = project.status === StatusProject.Active;
 
@@ -69,7 +68,6 @@ function FooterCard({ project, onCreateProposal, onDelete, onEdit }: Props) {
       return;
     }
 
-    setLoading(true);
     try {
       await onCreateProposal(salary, days);
       setVisible(false);
@@ -87,7 +85,6 @@ function FooterCard({ project, onCreateProposal, onDelete, onEdit }: Props) {
         confirmButtonText: "Aceptar",
       });
     } finally {
-      setLoading(false);
     }
   };
 
